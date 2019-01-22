@@ -1,7 +1,17 @@
 # How to Deploy a Machine Learning Risk Classification Model with Amazon AWS
 
-Intro paragraph
+Intro paragraph...
 
+## Risk Modelling Use Cases
+
+Risk modelling can be applied to many industries and in many different scenarios. Any time a company is interested in managing a particular outcome there is an opportunity to apply machine learning and advanced analytics to measure and predict the result. 
+
+Risk modelling falls into three main categories:
+
+* Financial Risk: The risk of defaulting on a loan or losing money in an investment. Financial institutions are interested in managing and measuring investment risk. 
+* Insurance Risk: Health insurance, life insurance, auto insurance, and home-owners insurance companies are all interested in measuring an individual's contribution and risk to their portfolio of products. What is the risk of insuring this person?
+* Business Risk: The risk of losing a customer (customer churn) or retaining an employee (employee retention). This can also be extended to education to measure the risk of a student dropping out or failing to graduate. 
+* Safety Risk: The risk of injury or death such as in hospitals or research laboratories. 
 
 ## The Benefits of using Amazon SageMaker Model Endpoints
 
