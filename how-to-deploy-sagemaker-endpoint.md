@@ -51,6 +51,10 @@ If you are a Data Scientist, you will appreciate how easy it is to organize, ann
 
 ## Step 3) Create ETL Functions in Lambda
 
+Amazon Lambda is a serverless compute option as part of Amazon's AWS compute suite of services. Think of them as the 'neurons' where the AWS soution aricheture is ths the 'brain'. Lambda functions don't require any provisioning of resources. They are on-the-fly pieces of code used for quick and simple function exectution and routing of data. 
+
+In our example, we use Lambda to perform the ETL pre-processing steps required to make the data readable to the model endpoint. ETL stands for extract, transform, and load. We are extracting the data from the source (the API Gateway), transforming the data into a readable format for the model, and loading the data into the model endpoint with an API call. 
+
 ## Step 4) Use DynamoDB as an Intermediate Database
 
 ## Step 5) Create Routing Functions in Lambda
