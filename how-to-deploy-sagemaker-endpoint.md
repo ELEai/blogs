@@ -12,10 +12,9 @@ The architecture I am proposing in this article is based upon a use case where a
 * __By Phone__: Applicants can phone in their application to a call center that utilizes both live agents and voice-bot agents. Voice-bot agents collect the bulk of the applicant data, but there are also live agents available to assist.
 * __By Mail__: Applicants also have the option of printing out and submitting a paper application. The paper application data is then manually entered into the back-end system for processing. Very few people use this option. 
 
+At Company X, applicant data is ingested and temporarily stored in a DynamoDB NoSQL database. Database entries are streamed to a rules-based function that decides to either 1) rejects the applicant based on a set of pre-defined rules, or 2) forward the application to an auditor who will manualy accept or reject the applicant. Below is a diagram showing how the data flows through the business. 
 
-#### Standard Analytics
-
-Company X 
+#### Sample Architecture for Data Ingestion with Cloud Hosted Analytics on AWS
 
 <img src="src/AnalyticsArchitecture.png" width="600"/>
 
