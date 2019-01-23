@@ -12,7 +12,12 @@ The architecture I am proposing in this article is based upon a use case where a
 * __By Phone__: Applicants can phone in their application to a call center that utilizes both live agents and voice-bot agents. Voice-bot agents collect the bulk of the applicant data, but there are also live agents available to assist.
 * __By Mail__: Applicants also have the option of printing out and submitting a paper application. The paper application data is then manually entered into the back-end system for processing. Very few people use this option. 
 
-#### 
+
+#### Standard Analytics
+
+Company X 
+
+<img src="src/AnalyticsArchitecture.png" width="600"/>
 
 ## Step 1) Architect the Data Ingestion Pipeline using API Gateway
 API Gateway is an easy and secure way to monitor and maintain your data ingestion process. Its a pay-per-use service that keeps track of all your API communication and has a gloabal reach. You can set up an API Gateway to recieve data from all of your data ingestion touchpoints. Mobile and desktop clients, IoT devices, and bot services in voice, phone, and text are all sources of data that you can incoprorate into your data ingestion architecture. 
