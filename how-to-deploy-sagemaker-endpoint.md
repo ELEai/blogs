@@ -2,16 +2,31 @@
 
 Intro paragraph...
 
+## Step 1) Architect the Data Ingestion Pipeline using API Gateway
+API Gateway is an easy and secure way to monitor and maintain your data ingestion process. Its a pay-per-use service that keeps track of all your API communication and has a gloabal reach. You can set up an API Gateway to recieve data from all of your data ingestion touchpoints. Mobile and desktop clients, IoT devices, and bot services in voice, phone, and text are all sources of data that you can incoprorate into your data ingestion architecture. 
+
+ -- use case example --
+
+## Step 2) Build a Model & Launch an Endpoint in SageMaker
+
+## Step 3) Create ETL Functions in Lambda
+
+## Step 4) Use DynamoDB as an Intermediate Database
+
+## Step 5) Create Routing Functions in Lambda
+
 ## Risk Modelling Use Cases
 
 Risk modelling can be applied to many industries and in many different scenarios. Any time a company is interested in managing a particular outcome there is an opportunity to apply machine learning and advanced analytics to measure and predict the result. 
 
-Risk modelling falls into three main categories:
+Risk modelling applies across a variety of industries. Some common use cases are:
 
-* Financial Risk: The risk of defaulting on a loan or losing money in an investment. Financial institutions are interested in managing and measuring investment risk. 
-* Insurance Risk: Health insurance, life insurance, auto insurance, and home-owners insurance companies are all interested in measuring an individual's contribution and risk to their portfolio of products. What is the risk of insuring this person?
-* Business Risk: The risk of losing a customer (customer churn) or retaining an employee (employee retention). This can also be extended to education to measure the risk of a student dropping out or failing to graduate. 
-* Safety Risk: The risk of injury or death such as in hospitals or research laboratories. 
+* Financial Risk: The risk of defaulting on a loan or losing money in an investment. A bank wants to know the risk of issuing a loan to a business or individual where an investment firm would be more focused on stock portfolio risk, or the risk of investing in a particular stock or fund. 
+* Insurance Risk: Health insurance, life insurance, auto insurance, and home-owners insurance companies are all interested in measuring an individual's contribution and risk to their portfolio of products. These companies are asking, What is the risk of insuring this person? What is the appropriate product we should offer this person and at what price?
+* Business Risk: The risk of losing a customer (customer churn) or retaining an employee (employee retention) is a well known use case. This can also be extended to education to measure the risk of a student dropping out or failing to graduate. 
+* Safety Risk: The risk of injury or death such as in hospitals and clinics. If you are a hospital or a group of doctors, you are interested in knowing the mortality risk of patient given their diagnosis and treatment response data. 
+
+## 
 
 ## The Benefits of using Amazon SageMaker Model Endpoints
 
@@ -25,4 +40,5 @@ Using SageMaker __promotes transparancy and collaboration__ by centralizing mode
 
 If you are a Data Scientist, you will appreciate how easy it is to organize, annotate, and share your work with colleagues and managers by using the built-in jupyter notebooks. The environment you configure in the notebook stays in the cloud, making it easy to pick up where you left off or collaborate on a model without having to deal with environment configurations. 
 
-## 
+## About ELE.ai
+
