@@ -1,6 +1,18 @@
 # How to Deploy a Machine Learning Risk Classification Model with Amazon AWS
 
-Intro paragraph...
+In this article I am going to walk you though a high-level example of how to deploy a machine learning model using Amazon Web Services (AWS). The beauty of using AWS is that all of their servces are par-per-use with extremely competative rates. For a data scientist just playing around and learning the AWS suite of services, there are many ways to implement model deployment architectures at minimal cost. 
+
+## Example Use Case: Risk Modeling with Application Data 
+
+The architecture I am proposing in this article is based upon a use case where a company (lets call them Company X) collects a lot of user or application data coming from various sources. Below are all the ways in which Company X collects application data: 
+
+* __Webform__: Company X has a website where users log-in, create a profile, and fill out a webform application directly on the website. This is the most common method applicats use. 
+* __Mobile App__: Since there are more people in the world with a mobile phone than a computer, Company X decided to develop a mobile app service. This is a very popular choice among their younger applicants.  
+* __Chat Bot__: Company X also has a chatbot service deployed on their website. Applicants submit their information to a bot agent via a chat dialog. The bot agent collects applicant information and provides an interface for answering commonly asked questions thoughout the application process. 
+* __By Phone__: Applicants can phone in their application to a call center that utilizes both live agents and voice-bot agents. Voice-bot agents collect the bulk of the applicant data, but there are also live agents available to assist.
+* __By Mail__: Applicants also have the option of printing out and submitting a paper application. The paper application data is then manually entered into the back-end system for processing. Very few people use this option. 
+
+#### 
 
 ## Step 1) Architect the Data Ingestion Pipeline using API Gateway
 API Gateway is an easy and secure way to monitor and maintain your data ingestion process. Its a pay-per-use service that keeps track of all your API communication and has a gloabal reach. You can set up an API Gateway to recieve data from all of your data ingestion touchpoints. Mobile and desktop clients, IoT devices, and bot services in voice, phone, and text are all sources of data that you can incoprorate into your data ingestion architecture. 
