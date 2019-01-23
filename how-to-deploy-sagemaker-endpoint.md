@@ -2,7 +2,7 @@
 
 In this article I am going to walk you though a high-level example of how to deploy a machine learning model using Amazon Web Services (AWS). The beauty of using AWS is that all of their servces are par-per-use with extremely competative rates. For a data scientist just playing around and learning the AWS suite of services, there are many ways to implement model deployment architectures at minimal cost. 
 
-## Example Use Case: Risk Modeling with Application Data 
+## Risk Modeling with Application Data 
 
 The architecture I am proposing in this article is based upon a use case where a company (lets call them Company X) collects a lot of user or application data coming from various sources. Below are all the ways in which Company X collects application data: 
 
@@ -22,14 +22,32 @@ Below is a diagram showing how the data flows through the business.
 
 ## Integrating Machine Learning into the Risk Audititing Process 
 
-Company X has decided to develop a machine learning algorithm to augment the risk auditing 
+Company X has decided to develop a machine learning algorithm that scores applicants based on a three-tiered risk category (low, medium, and high risk). The categories are delineated based on the probability of an applicant achieving some desired (or undesired) state. 
+
+Risk modelling can be applied to many industries and in many different scenarios. Any time a company is interested in managing a particular outcome there is an opportunity to apply machine learning and advanced analytics to measure and predict the outcome. In the case of applicant data, you can achieve savings and efficiency by using machine learning algorithms to assist in making business decisions, such as whether or not an applicant should be accepted or rejected. 
+
+
+#### Predict the probabability of an applicant being rejected or accepted
+In this scenario, we train a model on data that was manually audited and labeled by a human. Applicant training data is tied to a label that marks the applicant status. The status can be a multi-tiered grade or a binary yes/no decision. The machine learning algorithm _'learns'_ over time how auditors make their decisions and attempts to mimic their decision making process when given an unfamiliar data.  
+
 
 ## Step 1) Architect the Data Ingestion Pipeline using API Gateway
 API Gateway is an easy and secure way to monitor and maintain your data ingestion process. Its a pay-per-use service that keeps track of all your API communication and has a gloabal reach. You can set up an API Gateway to recieve data from all of your data ingestion touchpoints. Mobile and desktop clients, IoT devices, and bot services in voice, phone, and text are all sources of data that you can incoprorate into your data ingestion architecture. 
 
- -- use case example --
+In our example we are interested in using Amazon API Gateway for its log data, which will provide additional business insights and additional metrics from which to build better and more robust models from.  
 
 ## Step 2) Build a Model & Launch an Endpoint in SageMaker
+Amazon SageMaker is a machine learning platform that is equiped with a ton of features designed to streamline the machine learning development and launch process. Building models is hard, but creating the infrastructure to support the process doesn't have to be. Once you develop an algorithm in SageMaker, training and launching a model endpoint API in the cloud is as easy as writing a few lines of code. 
+
+SageMaker is a fully managed service that will handle all the messy business of provisioning containers and hosting your model endpoint for you. Amazon will take care of a number of tasks associated with provisioning a model into production and optimizing the required infracture according to your needs. For example:
+ - [Inference Pipelines](https://docs.aws.amazon.com/sagemaker/latest/): Models are most often not standalone entities, but ensembles and stacks of data transformed multiple times over before the final result is infered. SageMaker  provides an easy way to orchistrate multiple inferences and transformations into a single pipeline.
+ - [Auto Scaling](https://docs.aws.amazon.com/sagemaker/latest/dg/endpoint-auto-scaling.html): Set a CloudWatch alarm to trigger additional computing power by spinning up additional EC2 instances when you get a spike in model inference calls. This helps if you are interested in making real-time inferences and you have an unpredictible request load. 
+ - [Elastic Inferece (EI)](https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html): Do you have a computationally heavy model inference but don't like the high cost of hosting your endpoint on a GPU? Amazon EI is a service that will speed up the throughput of your deep learning models by provisioning an "accelerator" compute resource at the time the model is called. In many cases you can ditch the GPU.
+ - [Neo](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html): Neo can optimize your model across TensorFlow, Apache MXNet, PyTorch, ONNX, and XGBoost for deployment on ARM, Intel, and Nvidia processors. Train your model once and use it anywhere. 
+
+Using SageMaker ___promotes transparancy and collaboration___ by centralizing model development activities on a single platform. If you are a manager or owner and you are interested in monitoring your Data Science team's activities and utilization, then using SageMaker in conjunction with [IAM](https://aws.amazon.com/iam/), [CloudWatch](https://aws.amazon.com/cloudwatch/) and [CloudTrail](https://aws.amazon.com/cloudtrail/) can give you insights into what data is being accessed, who (or what) is accessing that data, and how much these activities costing. 
+
+If you are a Data Scientist, you will appreciate how easy it is to organize, annotate, and share your work with colleagues and managers by using the built-in jupyter notebooks. The environment you configure in the notebook stays in the cloud, making it easy to pick up where you left off or collaborate on a model without having to deal with environment configurations. 
 
 ## Step 3) Create ETL Functions in Lambda
 
@@ -37,16 +55,7 @@ API Gateway is an easy and secure way to monitor and maintain your data ingestio
 
 ## Step 5) Create Routing Functions in Lambda
 
-## Risk Modelling Use Cases
 
-Risk modelling can be applied to many industries and in many different scenarios. Any time a company is interested in managing a particular outcome there is an opportunity to apply machine learning and advanced analytics to measure and predict the result. 
-
-Risk modelling applies across a variety of industries. Some common use cases are:
-
-* Financial Risk: The risk of defaulting on a loan or losing money in an investment. A bank wants to know the risk of issuing a loan to a business or individual where an investment firm would be more focused on stock portfolio risk, or the risk of investing in a particular stock or fund. 
-* Insurance Risk: Health insurance, life insurance, auto insurance, and home-owners insurance companies are all interested in measuring an individual's contribution and risk to their portfolio of products. These companies are asking, What is the risk of insuring this person? What is the appropriate product we should offer this person and at what price?
-* Business Risk: The risk of losing a customer (customer churn) or retaining an employee (employee retention) is a well known use case. This can also be extended to education to measure the risk of a student dropping out or failing to graduate. 
-* Safety Risk: The risk of injury or death such as in hospitals and clinics. If you are a hospital or a group of doctors, you are interested in knowing the mortality risk of patient given their diagnosis and treatment response data. 
 
 ## 
 
