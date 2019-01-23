@@ -12,7 +12,7 @@ The architecture I am proposing in this article is based upon a use case where a
 * __By Phone__: Applicants can phone in their application to a call center that utilizes both live agents and voice-bot agents. Voice-bot agents collect the bulk of the applicant data, but there are also live agents available to assist.
 * __By Mail__: Applicants also have the option of printing out and submitting a paper application. The paper application data is then manually entered into the back-end system for processing. Very few people use this option. 
 
-At Company X, applicant data is ingested and temporarily stored in a DynamoDB NoSQL database. Applications are streamed into an Amazon S3 Bucket and an Amazon Redshift mySQL relational database. Amazon S3 Bucket storage is a great option for storing data that is frequently accessed and for performing fast ad hoc queries. Amazon Redshift is a relational mySQL database and is optimized for aggregate analytical queries and routine business analytics. 
+At Company X, applicant data is ingested and temporarily stored in a DynamoDB NoSQL database. Applications are streamed and routed (via Amazon Lambda) into an Amazon S3 Bucket and an Amazon Redshift mySQL relational database. Amazon S3 Bucket storage is a great option for storing data that is frequently accessed and for performing fast ad hoc queries. Amazon Redshift is a relational mySQL database and is optimized for aggregate analytical queries and routine business analytics. 
 
 Below is a diagram showing how the data flows through the business. 
 
@@ -28,15 +28,18 @@ Risk modelling can be applied to many industries and in many different scenarios
 
 
 #### Predict the probabability of an applicant being rejected or accepted
+
 In this scenario, we train a model on data that was manually audited and labeled by a human. Applicant training data is tied to a label that marks the applicant status. The status can be a multi-tiered grade or a binary yes/no decision. The machine learning algorithm _'learns'_ over time how auditors make their decisions and attempts to mimic their decision making process when given an unfamiliar data.  
 
 
 ## Step 1) Architect the Data Ingestion Pipeline using API Gateway
+
 API Gateway is an easy and secure way to monitor and maintain your data ingestion process. Its a pay-per-use service that keeps track of all your API communication and has a gloabal reach. You can set up an API Gateway to recieve data from all of your data ingestion touchpoints. Mobile and desktop clients, IoT devices, and bot services in voice, phone, and text are all sources of data that you can incoprorate into your data ingestion architecture. 
 
 In our example we are interested in using Amazon API Gateway for its log data, which will provide additional business insights and additional metrics from which to build better and more robust models from.  
 
 ## Step 2) Build a Model & Launch an Endpoint in SageMaker
+
 Amazon SageMaker is a machine learning platform that is equiped with a ton of features designed to streamline the machine learning development and launch process. Building models is hard, but creating the infrastructure to support the process doesn't have to be. Once you develop an algorithm in SageMaker, training and launching a model endpoint API in the cloud is as easy as writing a few lines of code. 
 
 SageMaker is a fully managed service that will handle all the messy business of provisioning containers and hosting your model endpoint for you. Amazon will take care of a number of tasks associated with provisioning a model into production and optimizing the required infracture according to your needs. For example:
@@ -57,11 +60,14 @@ In our example, we use Lambda to perform the ETL pre-processing steps required t
 
 ## Step 4) Use DynamoDB as an Intermediate Database
 
-## Step 5) Create Routing Functions in Lambda
+Amazon's NoSQL database service, DynamoDB, is a great way to manage streaming and unpredictable data. All transactions are preserved because each call to Dynamo DB is a seperate and recordable event. If you enable the _'Streams'_ feature then you get most of the functionality of Amazon Kinesis Firehose, allowing you to handle spikes in traffic by turning your data streams into a parallel compute MapReduce job. 
 
+In our example, Company X writes data directly into a DynamoDB, which is a valid solution. However, if Company X want to deploy a machine learning model inference into the applicaion process, I would recommend doing so before the data is written to DynamoDB. Why? For two reasons: 1) because you can take advange of real-time analytics on model inference calls, and 2) it gives you the option to provide immediate feedback to the user or client if you choose to. 
 
+#### Example Architecture for Real-Time Model Inferencing on AWS
 
-## 
+<img src="src/AnalyticsArchitecture.png" width="600"/>
+
 
 ## The Benefits of using Amazon SageMaker Model Endpoints
 
