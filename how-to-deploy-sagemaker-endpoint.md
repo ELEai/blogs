@@ -1,16 +1,16 @@
 # How to Deploy a Machine Learning Risk Classification Model with Amazon AWS
 
-In this article I am going to walk you though a high-level example of how to deploy a machine learning model using Amazon Web Services (AWS). The beauty of using AWS is that all of their servces are par-per-use with extremely competative rates. For a data scientist just playing around and learning the AWS suite of services, there are many ways to implement model deployment architectures at minimal cost. 
+In this article I am going to walk you though a high-level example of how to deploy a machine learning model using Amazon Web Services (AWS). The beauty of using AWS is that all of their servces are pay-per-use with extremely competative rates. For a data scientist just playing around and learning the AWS suite of services, there are many ways to implement model deployment architectures at minimal cost. 
 
 ## Risk Modeling with Application Data 
 
 The architecture I am proposing in this article is based upon a use case where a company (lets call them Company X) collects a lot of user or application data coming from various sources. Below are all the ways in which Company X collects application data: 
 
 * __Webform__: Company X has a website where users log-in, create a profile, and fill out a webform application directly on the website. This is the most common method applicats use. 
-* __Mobile App__: Since there are more people in the world with a mobile phone than a computer, Company X decided to develop a mobile app service. This is a very popular choice among their younger applicants.  
+* __Mobile App__: Since there are more people in the world with a mobile phone than a computer, Company X decided to develop a mobile app service. This is a popular choice among a growing segment of applicants.  
 * __Chat Bot__: Company X also has a chatbot service deployed on their website. Applicants submit their information to a bot agent via a chat dialog. The bot agent collects applicant information and provides an interface for answering commonly asked questions thoughout the application process. 
 * __By Phone__: Applicants can phone in their application to a call center that utilizes both live agents and voice-bot agents. Voice-bot agents collect the bulk of the applicant data, but there are also live agents available to assist.
-* __By Mail__: Applicants also have the option of printing out and submitting a paper application. The paper application data is then manually entered into the back-end system for processing. Very few people use this option. 
+* __By Mail__: Applicants also have the option of printing out and submitting a paper application. The paper application data is then manually entered into the back-end system for processing. 
 
 At Company X, applicant data is ingested and temporarily stored in a DynamoDB NoSQL database. Applications are streamed and routed (via Amazon Lambda) into an Amazon S3 Bucket and an Amazon Redshift mySQL relational database. Amazon S3 Bucket storage is a great option for storing data that is frequently accessed and for performing fast ad hoc queries. Amazon Redshift is a relational mySQL database and is optimized for aggregate analytical queries and routine business analytics. 
 
@@ -26,11 +26,9 @@ Company X has decided to develop a machine learning algorithm that scores applic
 
 Risk modelling can be applied to many industries and in many different scenarios. Any time a company is interested in managing a particular outcome there is an opportunity to apply machine learning and advanced analytics to measure and predict the outcome. In the case of applicant data, you can achieve savings and efficiency by using machine learning algorithms to assist in making business decisions, such as whether or not an applicant should be accepted or rejected. 
 
-
 #### Predict the probabability of an applicant being rejected or accepted
 
-In this scenario, we train a model on data that was manually audited and labeled by a human. Applicant training data is tied to a label that marks the applicant status. The status can be a multi-tiered grade or a binary yes/no decision. The machine learning algorithm _'learns'_ over time how auditors make their decisions and attempts to mimic their decision making process when given an unfamiliar data.  
-
+In this scenario, we want to train a model that will simulate the manual auditing process of accepting or rejecting an application. Applicant training data is tied to a label that marks the applicant status. The status can be a multi-tiered grade or a binary yes/no decision. The machine learning algorithm _'learns'_ over time how auditors make their decisions and attempts to mimic their decision making process when given an new application.  
 
 ## Step 1) Architect the Data Ingestion Pipeline using API Gateway
 
@@ -48,9 +46,9 @@ SageMaker is a fully managed service that will handle all the messy business of 
  - [Elastic Inferece (EI)](https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html): Do you have a computationally heavy model inference but don't like the high cost of hosting your endpoint on a GPU? Amazon EI is a service that will speed up the throughput of your deep learning models by provisioning an "accelerator" compute resource at the time the model is called. In many cases you can ditch the GPU.
  - [Neo](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html): Neo can optimize your model across TensorFlow, Apache MXNet, PyTorch, ONNX, and XGBoost for deployment on ARM, Intel, and Nvidia processors. Train your model once and use it anywhere. 
 
-Using SageMaker ___promotes transparancy and collaboration___ by centralizing model development activities on a single platform. If you are a manager or owner and you are interested in monitoring your Data Science team's activities and utilization, then using SageMaker in conjunction with [IAM](https://aws.amazon.com/iam/), [CloudWatch](https://aws.amazon.com/cloudwatch/) and [CloudTrail](https://aws.amazon.com/cloudtrail/) can give you insights into what data is being accessed, who (or what) is accessing that data, and how much these activities costing. 
+Another benefit to using SageMaker is that it ___promotes transparancy and collaboration___ by centralizing model development activities on a single platform. If you are a manager or owner and you are interested in monitoring your Data Science team's activities and utilization, then using SageMaker in conjunction with [IAM](https://aws.amazon.com/iam/), [CloudWatch](https://aws.amazon.com/cloudwatch/) and [CloudTrail](https://aws.amazon.com/cloudtrail/) can give you insights into what data is being accessed, who (or what) is accessing that data, how it is being used, and how much are these activities costing. 
 
-If you are a Data Scientist, you will appreciate how easy it is to organize, annotate, and share your work with colleagues and managers by using the built-in jupyter notebooks. The environment you configure in the notebook stays in the cloud, making it easy to pick up where you left off or collaborate on a model without having to deal with environment configurations. 
+If you are a data scientist, you will appreciate how easy it is to organize, annotate, and share your work with colleagues and managers by using the built-in jupyter notebooks. The environment you configure in the notebook stays in the cloud, making it easy to pick up where you left off or collaborate on a model without having to deal with environment configurations. 
 
 ## Step 3) Create ETL Functions in Lambda
 
@@ -60,17 +58,17 @@ In our example, we use Lambda to perform the ETL pre-processing steps required t
 
 ## Step 4) Use DynamoDB as an Intermediate Database
 
-Amazon's NoSQL database service, DynamoDB, is a great way to manage streaming and unpredictable data. All transactions are preserved because each call to Dynamo DB is a seperate and recordable event. If you enable the _'Streams'_ feature then you get most of the functionality of Amazon Kinesis Firehose, allowing you to handle spikes in traffic by turning your data streams into a parallel compute MapReduce job. 
+Amazon's NoSQL database service, DynamoDB, is a great way to manage streaming and unpredictable data. All transactions are preserved because each call to Dynamo DB is a seperate and recordable event. If you enable the _'streams'_ feature then you get the functionality of Amazon Kinesis Firehose, allowing you to handle spikes in traffic by turning your data streams into a parallel compute MapReduce job. 
 
-In our example, Company X writes data directly into a DynamoDB, which is a valid solution. However, if Company X want to deploy a machine learning model inference into the applicaion process, I would recommend doing so before the data is written to DynamoDB. Why? For two reasons: 1) because you can take advange of real-time analytics on model inference calls, and 2) it gives you the option to provide immediate feedback to the user or client if you choose to. 
+In our example, Company X writes data directly into a DynamoDB, which is a valid solution. However, if Company X want to deploy a machine learning model inference into the applicaion process, I would recommend doing so before the data is written to DynamoDB. Why? For two reasons: 1) because you can take advange of real-time analytics on model inference calls, and 2) it gives you the option to provide immediate feedback to the user or client if you choose to. This may or may not be possible depending on the compute needs of the model inference, but it is preferable if the option is available to you. 
 
 #### Example Architecture for Real-Time Model Inferencing on AWS
 
 <img src="src/Copy-multi-client-architecture2.png" width="600"/>
 
-## Summary
+## Advantages & Benefits
 
-
+By integrating a machine learning risk classification model at the front of the data ingestion pipeline, Company X is able to make rapid decisions, speed up their auditing process, and gain more granular insights into the application process. 
 
 ## About ELE.ai
-
+Interested in incorporating AI and machine learning into your business but don't know where to start or how to find a data scientist? Have a heavy data science workload and need additional resources to help bring your AI projects to furition? ELE.ai can help you start or scale your data science initiatives. Learn more at [ELE.ai](https://ele.ai/). 
