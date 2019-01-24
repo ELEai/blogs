@@ -1,1 +1,1 @@
-# blogs
+# The ELE.ai Blog Repository
